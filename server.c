@@ -3,9 +3,6 @@
 //
 
 #include <stdio.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <stdlib.h>
 #include <time.h>
 
 #include "UDP.h"
