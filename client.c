@@ -31,10 +31,10 @@ int main(int argc, char *argv[])
     uint32_t i32_timestamp;
     int n;
 
-    struct srct_Richiesta struct_Richiesta1 = {DEF_INGRESSO, "AB123CD", 3};
-    struct srct_Richiesta struct_Richiesta2 = {DEF_USCITA, "EF456GH", 16};
-    struct srct_Risposta struct_Risposta1;
-    struct srct_Risposta struct_Risposta2;
+    short sh_i = 0;
+
+    struct srct_Richiesta struct_Richiesta[] = {DEF_INGRESSO, "AB123CD", 3, DEF_USCITA, "EF456GH", 16};
+    struct srct_Risposta struct_Risposta[] = {0};
     
     
     if (argc!= 2)
@@ -49,41 +49,52 @@ int main(int argc, char *argv[])
         return -202;
     }
 
-    UDP_send(i32_ip_address, i16_port_number, (uint8_t *)&struct_Richiesta1, sizeof(struct_Richiesta1));
-
-    if(n = (UDP_receive(&i32_ip_address, &i16_port_number, (uint8_t *)&struct_Risposta1, sizeof(struct_Risposta1))) > 0)
+    while(struct_Richiesta[sh_i].i8_comando != DEF_INGRESSO || struct_Richiesta[sh_i].i8_comando != DEF_USCITA)
     {
-        if(struct_Risposta1.i8_FlagErrore == 1)
+        switch (struct_Richiesta[sh_i].i8_comando)
         {
-            printf("OK\r\n");
+            case DEF_USCITA:
+                UDP_send(i32_ip_address, i16_port_number, (uint8_t *)&struct_Richiesta[sh_i], sizeof(struct_Richiesta[sh_i]));
+
+                if(n = (UDP_receive(&i32_ip_address, &i16_port_number, (uint8_t *)&struct_Risposta[sh_i], sizeof(struct_Risposta[sh_i]))) > 0)
+                {
+                    if(struct_Risposta[sh_i].i8_FlagErrore == 1)
+                    {
+                        if(struct_Risposta[sh_i].b_multa == true)
+                        {
+                            printf("%s ha preso una multa\r\n", struct_Richiesta[sh_i].arr16ch_targa);
+                        }
+                        else
+                        {
+                            printf("%s non ha preso la multa\r\n",struct_Richiesta[sh_i].arr16ch_targa);
+                        }
+                    }
+                    else
+                    {
+                        printf("C'è stato un errore\r\n");
+                    }
+                }
+
+            case DEF_INGRESSO:
+                UDP_send(i32_ip_address, i16_port_number, (uint8_t *)&struct_Richiesta[sh_i], sizeof(struct_Richiesta[sh_i]));
+
+                if(n = (UDP_receive(&i32_ip_address, &i16_port_number, (uint8_t *)&struct_Risposta[sh_i], sizeof(struct_Risposta[sh_i]))) > 0)
+                {
+                    if(struct_Risposta[sh_i].i8_FlagErrore == 1)
+                    {
+                        printf("OK\r\n");
+                    }
+
+                    else
+                    {
+                        printf("Errore\r\n");
+                    }
+                }
         }
 
-        else
-        {
-            printf("Errore\r\n");
-        }
+        sh_i++;
     }
 
-    UDP_send(i32_ip_address, i16_port_number, (uint8_t *)&struct_Richiesta2, sizeof(struct_Richiesta2));
-
-    if(n = (UDP_receive(&i32_ip_address, &i16_port_number, (uint8_t *)&struct_Risposta2, sizeof(struct_Risposta2))) > 0)
-    {
-        if(struct_Risposta2.i8_FlagErrore == 1)
-        {
-            if(struct_Risposta2.b_multa == true)
-            {
-                printf("%s ha preso una multa\r\n", struct_Richiesta2.arr16ch_targa);
-            }
-            else
-            {
-                printf("%s non ha preso la multa\r\n", struct_Richiesta2.arr16ch_targa);
-            }
-        }
-        else
-        {
-            printf("C'è stato un errore\r\n");
-        }
-    }
 
     UDP_close();
     return 0;
