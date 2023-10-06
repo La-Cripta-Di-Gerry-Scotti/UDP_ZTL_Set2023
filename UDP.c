@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <sys/select.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #include "UDP.h"
 

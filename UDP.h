@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 // converte un indirizzo IP nella notazione ASCII decimale usuale (esempio:
 // "192.168.1.1") in un valore numerico a 32 bit

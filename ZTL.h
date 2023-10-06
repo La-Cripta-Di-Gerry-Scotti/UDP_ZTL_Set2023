@@ -3,7 +3,7 @@
 //
 
 #include <stdbool.h>
-#include <stdbool.h>
+
 
 int ingressoVeicolo(char targa[], unsigned long timestamp);
 
