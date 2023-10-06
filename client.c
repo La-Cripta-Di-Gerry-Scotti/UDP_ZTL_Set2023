@@ -27,7 +27,7 @@ struct srct_Risposta{
 int main(int argc, char *argv[])
 {
     uint32_t i32_ip_address;
-    uint16_t i16_port_number;
+    uint16_t i16_port_number = DEF_PORTNUMBER;
     uint32_t i32_timestamp;
     int n;
 
@@ -48,6 +48,8 @@ int main(int argc, char *argv[])
         printf("Errore inizializzazione socket\n");
         return -202;
     }
+
+    i32_ip_address = IP_to_bin(argv[1]);
 
     while(struct_Richiesta[sh_i].i8_comando != DEF_INGRESSO || struct_Richiesta[sh_i].i8_comando != DEF_USCITA)
     {

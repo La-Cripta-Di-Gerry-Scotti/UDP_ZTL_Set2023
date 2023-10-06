@@ -30,7 +30,7 @@ struct srct_Risposta{
 
 int main() {
     uint32_t i32_IpAddress;
-    uint16_t i16_PortNumber;
+    uint16_t i16_PortNumber = DEF_PORTNUMBER;
     uint32_t i32_TimeStamp;
     int i_ControlloCiclo;
 
