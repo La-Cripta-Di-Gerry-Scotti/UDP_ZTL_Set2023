@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
     i32_ip_address = IP_to_bin(argv[1]);
 
-    while(struct_Richiesta[sh_i].i8_comando != DEF_INGRESSO || struct_Richiesta[sh_i].i8_comando != DEF_USCITA)
+    while(struct_Richiesta[sh_i].i8_comando == DEF_INGRESSO || struct_Richiesta[sh_i].i8_comando == DEF_USCITA)
     {
         switch (struct_Richiesta[sh_i].i8_comando)
         {
