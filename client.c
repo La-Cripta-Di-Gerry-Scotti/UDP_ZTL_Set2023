@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-
+#include <stdbool.h>
 #include "UDP.h"
 #include "ZTL.h"
 

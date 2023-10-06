@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <time.h>
+#include <stdbool.h>
 
 #include "UDP.h"
 #include "ZTL.h"
@@ -17,14 +18,14 @@
 #define DEF_CNTRL_ERR 0
 
 struct srct_Richiesta{
-    u_int8_t i8_comando;
+    uint8_t i8_comando;
     char arr16ch_targa[16];
-    u_int16_t i16_minuti;
+    uint16_t i16_minuti;
 };
 
 struct srct_Risposta{
     uint8_t i8_comando;
-    u_int8_t i8_FlagErrore;
+    uint8_t i8_FlagErrore;
     bool b_multa;
 };
 
