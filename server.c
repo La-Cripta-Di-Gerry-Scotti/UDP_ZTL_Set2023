@@ -64,7 +64,7 @@ int main() {
                 UDP_close();
                 return -103;
                 
-            case 1:
+            default:
                 printf("Ricevuto datagramma\n");
                 
                 if ((i_ControlloCiclo = UDP_receive(&i32_IpAddress, &i16_PortNumber, (uint8_t*)&struct_Richiesta, sizeof(struct_Richiesta)) == sizeof(struct_Richiesta)) > 0)
