@@ -1,25 +1,19 @@
-//
-// Created by Giacomo Cunardi on 02/10/23.
-//
-
-
 #include <stdlib.h>
+#include "ZTL.h"
 
-
-int ingressoVeicolo(char targa[], unsigned long timestamp)
-{
-    return 0;
+// Return = 1 OK
+// Return = 0 ERR
+int ingressoVeicolo(char targa[], unsigned long timestamp){
+    return 1;
 }
 
+// Return = 1 OK
+// Return = 0 ERR
 int uscitaVeicolo(char targa[], unsigned long timestamp, bool* multa)
 {
-    // Gestire 15 min
-    if(rand()%1440 >= 15){
+    if(rand()%350 >= 15)
         *multa = true;
-    }
-    else{
+    else
         *multa = false;
-    }
-
-
+    return 1;
 }
